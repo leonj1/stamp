@@ -1,0 +1,40 @@
+[
+    {
+        "file": "/Users/USERNAME/src/atlas/provisioning/envs/devops/USERNAME/options.yml",
+        "keys": [
+            {
+                "target": "keypair:",
+                "value": "USERNAME"
+            },
+            {
+                "target": "use_sysdig:",
+                "value": "False"
+            },
+            {
+                "target": "use_newrelic:",
+                "value": "False"
+            },
+            {
+                "target": "router_ssl_certificate:",
+                "value": "\"ARN_PATH\""
+            },
+            {
+                "target": "sub_domain_name:",
+                "value": "\"USERNAME.{{ hosted_zone }}\""
+            }
+        ]
+    },
+    {
+        "file": "/Users/USERNAME/src/atlas/provisioning/envs/devops/USERNAME/secrets.yml",
+        "keys": [
+            {
+                "target": "crypted_deis_admin_user:",
+                "value": "admin"
+            },
+            {
+                "target": "crypted_deis_admin_password:",
+                "value": "password"
+            }
+        ]
+    }
+]
