@@ -1,11 +1,20 @@
 #!/bin/bash
 
-CLUSTER=provisioning/envs/devops/USERNAME
+SRC_CLUSTER="feature/one"
+TARGET_CLUSTER=provisioning/envs/devops/USERNAME
 
-cp -r ./provisioning/envs/feature/one $CLUSTER
-ansible-vault decrypt --vault-password-file=~/.secrets/vault $CLUSTER/secrets.yml
+STAMP_PATH=~/workarea/stamp
+VAULT_FILE=~/.secrets/vault
 
-python ~/workarea/stamp/token.py -i ~/workarea/stamp/template.json
+if [ ! -r $VAULT_FILE ]; then
+    echo "Vault file does not exist. Terminating."
+    exit 1
+fi
 
-ansible-vault encrypt --vault-password-file=~/.secrets/vault $CLUSTER/secrets.yml
+cp -r ./provisioning/envs/$SRC_CLUSTER $TARGET_CLUSTER
+ansible-vault decrypt --vault-password-file=$VAULT_FILE $TARGET_CLUSTER/secrets.yml
+
+python $STAMP_PATH/token.py -i $STAMP_PATH/template.json
+
+ansible-vault encrypt --vault-password-file=$VAULT_FILE $TARGET_CLUSTER/secrets.yml
 
