@@ -12,6 +12,11 @@ if [ ! -r $VAULT_FILE ]; then
     exit 1
 fi
 
+if [[ -d $TARGET_CLUSTER ]]; then
+    echo "Deleting target cluster since we absolutely want to start over"
+    rm -rf $TARGET_CLUSTER
+fi
+
 cp -r $SRC_CLUSTER $TARGET_CLUSTER
 ansible-vault decrypt --vault-password-file=$VAULT_FILE $TARGET_CLUSTER/secrets.yml
 
